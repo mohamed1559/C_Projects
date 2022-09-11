@@ -1,0 +1,169 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAXSIZE 100
+#define TRUE 1
+#define FALSE 0
+
+// Structure defining Stack data structure
+struct Stack {
+    int top;
+    int array[MAXSIZE];
+} st;
+
+/*
+Initializes the top index to -1
+*/
+void initialize() {
+ st.top = -1;
+}
+
+/*
+ Checks if Stack is Full or not
+*/
+int isFull() {
+    if(st.top >= MAXSIZE-1)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+/*
+ Checks if Stack is Empty or not
+*/
+int isEmpty() {
+ if(st.top == -1)
+     return TRUE;
+ else
+     return FALSE;
+}
+
+/*
+ Adds an element to stack and then increment top index
+*/
+void push(int num) {
+    if (isFull())
+        printf("Stack is Full...\n");
+    else {
+        st.array[st.top + 1] = num;
+        st.top++;
+    }
+}
+
+/*
+ Removes top element from stack and decrement top index
+*/
+int pop() {
+    if (isEmpty()){
+        printf("Stack is Empty...\n"); return 0;}
+    else {
+     st.top = st.top - 1;
+        return st.array[st.top+1];
+    }
+}
+
+
+void insertAtBottom(int item) {
+    if (isEmpty()) {
+        push(item);
+    } else {
+
+        /* Store the top most element of stack in top variable and
+        recursively call insertAtBottom for rest of the stack */
+        int top = pop();
+        insertAtBottom(item);
+
+        /* Once the item is inserted at the bottom, push the
+        top element back to stack */
+        push(top);
+    }
+}
+
+void reverse() {
+    if (!isEmpty()) {
+        /* keep on popping top element of stack in
+        every recursive call till stack is empty  */
+        int top = pop();
+        reverse();
+
+        /* Now, instead of inserting element back on top
+        of stack, we will insert it at the bottom of stack */
+        insertAtBottom(top);
+    }
+}
+/*
+Returns the number of elements in Stack
+*/
+int getSize(){
+ return st.top+1;
+}
+
+int check_Bipartite(int n,int graph[][n], int info, int color[])
+{
+    color[info] = 1;
+
+
+     initialize(st);
+     push(info);
+     reverse();
+
+    while (!(isEmpty())) {  // check size
+
+        int u = pop();
+        if (graph[u][n] == 1)
+            return 0;
+
+
+        for (int v = 0; v < n; ++v) {
+            if (graph [u][v]&& color[v] == -1) {
+                color[v] = 1 - color[u];
+                push(v);
+                reverse();
+            }
+            else if (graph [u][v]&& color[v] == color[u])
+                return 0;
+        }
+    }
+
+    return 1;
+}
+
+
+int isBipartite(int n,int graph[][n])
+{
+    int color[n];
+    for (int i = 0; i < n; ++i)
+        color[i] = -1;
+
+    for (int i = 0; i < n; i++)
+        if (color[i] == -1)
+            if (check_Bipartite(n,graph, i, color) == 0)
+                return 0;
+
+    return 1;
+}
+
+int main()
+{
+
+    int n,e,x,y;
+    scanf("%d%d",&n,&e);
+    int graph[n][n];
+     //int graph[n][n];
+     for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+        {
+             graph[i][j]=0;
+        }
+        }
+    for(int i=0;i<e;i++)
+    {
+        scanf("%d%d",&y,&x);
+       graph[(y-1)][x-1]=1;
+    }
+
+
+   isBipartite(n,graph) ? printf("Yes")  :printf("No") ;
+    return 0;
+}

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1638796731 source:c:\users\ollaa\desktop\balancedbst\main.c
+	<stdio.h>
+	<stdlib.h>
+

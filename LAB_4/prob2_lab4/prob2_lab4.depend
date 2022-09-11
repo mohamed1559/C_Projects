@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1636871453 source:e:\c projects\prob2_lab4\main.c
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<stdlib.h>
+

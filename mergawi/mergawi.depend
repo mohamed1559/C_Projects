@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1639177461 source:e:\c projects\mergawi\main.c
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<stdlib.h>
+

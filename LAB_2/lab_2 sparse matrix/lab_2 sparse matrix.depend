@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1635692677 source:e:\c projects\lab_2 sparse matrix\main.c
+	<stdio.h>
+	<string.h>
+	<math.h>
+	<stdlib.h>
+
